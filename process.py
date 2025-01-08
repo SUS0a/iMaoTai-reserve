@@ -263,7 +263,7 @@ def reservation(params: dict, mobile: str):
     #     raise RuntimeError
 
     msg = f'预约:{mobile};Code:{responses.status_code};Body:{responses.text};'
-    logging.info(msg)
+    #logging.info(msg)
 
     # 如果是成功，推送消息简化；失败消息则全量推送
     if responses.status_code == 200:
@@ -334,8 +334,8 @@ def getUserEnergyAward(mobile: str):
     response = requests.post('https://h5.moutai519.com.cn/game/isolationPage/getUserEnergyAward', cookies=cookies,
                              headers=headers, json={})
     # response.json().get('message') if '无法领取奖励' in response.text else "领取奖励成功"
-    logging.info(
-        f'领取耐力 : mobile:{mobile} :  response code : {response.status_code}, response body : {response.text}')
+#     logging.info(
+#         f'领取耐力 : mobile:{mobile} :  response code : {response.status_code}, response body : {response.text}')
 
 
 def set_default_value(input_value, default_content):
