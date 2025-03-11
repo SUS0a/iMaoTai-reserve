@@ -15,18 +15,11 @@ logging.basicConfig(level=logging.INFO,
                     stream=sys.stdout,
                     datefmt=DATE_FORMAT)
 
-print(r'''
-**************************************
-    欢迎使用i茅台自动预约工具
-    作者GitHub：https://github.com/3 9 7 1 7 9 4 5 9
-    vx：L 3 9 7 1 7 9 4 5 9 加好友注明来意
-**************************************
-''')
 
 process.get_current_session_id()
 
 # 校验配置文件是否存在
-configs = login.config
+configs = login.configs = login.config
 if len(configs.sections()) == 0:
     logging.error("配置文件未找到配置")
     sys.exit(1)
@@ -78,16 +71,9 @@ for section in configs.sections():
             s_content = s_content + r_content + shopInfo + "\n"
             # 领取小茅运和耐力值
             process.getUserEnergyAward(mobile)
-            if config.PUSH_TOKEN is None:
-              return
-            url = 'http://www.pushplus.plus/send'
-            r = requests.get(url, params={'token': config.PUSH_TOKEN,
-                                  'title': s_title,
-                                  'content': s_content})
-            logging.info(f'通知推送结果：{r.status_code, r.text}')
     except BaseException as e:
         print(e)
         logging.error(e)
 
 # 推送消息
-
+send_message.send_pushplus(config.PUSH_TOKEN, s_title, s_content)
